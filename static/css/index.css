@@ -1,0 +1,13 @@
+
+.scrollable {
+    max-height: 300;
+    overflow-y: auto;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+li:hover{
+    background-color: rgb(247, 250, 255);
+    border-radius: 2px;
+}
