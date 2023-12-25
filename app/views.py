@@ -1,13 +1,56 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-import json
-from uuid import uuid4
-from .models import Customer
 
 # Create your views here.
 
 def index(req):
     return render(req, 'index.html', {})
+
+def userList(req):
+    return render(req, 'userlist.html', {})
+
+def userAdd(req):
+    try:
+        if req.method == "POST":
+            return JsonResponse({'status': 200, 'text' : 'User Created Successfully!!!'})
+    except Exception as e:
+        return JsonResponse({'status': 400, 'text' : e})
+    return render(req, 'useradd.html', {})
+
+def userEdit(req):
+    pass
+
+def labelList(req):
+    pass
+
+def labelAdd(req):
+    pass
+
+def labelEdit(req):
+    pass
+
+def stockList(req):
+    pass
+
+def stockAdd(req):
+    pass
+
+def stockEdit(req):
+    pass
+
+def billList(req):
+    pass
+
+def billAdd(req):
+    pass
+
+def billEdit(req):
+    pass
+
+
+
+
+
 
 # def signin(req):
 #     if req.method == 'POST':

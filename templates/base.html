@@ -4,24 +4,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{% block title %}{% endblock %}</title>
 
     <!-- Framework imports -->
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <script src="../static/js/bootstrap.js"></script>
-    <!-- <script src="../static/js/jquery.js"></script> -->
+    <script src="../static/js/frameworks/bootstrap.js"></script>
+    <script src="../static/js/frameworks/jquery.js"></script>
 
     <!-- Custom imports -->
     <link rel="stylesheet" href="../static/css/index.css">
-    <script src="../static/js/index.js"></script>
 </head>
 
 <body>
-    <div class="container-fluid shadow p-3 mb-5 bg-body rounded">
+    <!-- Success Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">PF Firewall</strong>
+                <small>A second ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <p id="succuessToastText"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unsuccess Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="unsuccessToast" class="toast text-bg-danger" role="alert" aria-live="assertive" data-bs-delay="30000"
+            aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">PF Firewall</strong>
+                <small>A second ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <p id="unsuccessToastText"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="warningToast" class="toast text-bg-warning " role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">PF Firewall</strong>
+                <small>A second ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <p id="warningToastText"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const csrfToken = "{{ csrf_token }}";
+        const successToastText = document.getElementById('succuessToastText');
+        const unsuccessToastText = document.getElementById('unsuccessToastText');
+        const warningToastText = document.getElementById('warningToastText');
+        const successToast = new bootstrap.Toast(document.getElementById('successToast'));
+        const unsuccessToast = new bootstrap.Toast(document.getElementById('unsuccessToast'));
+        const warningToast = new bootstrap.Toast(document.getElementById('warningToast'));
+    </script>
+
+    <div class="container-fluid overflow-hidden shadow p-3 mb-5 bg-body rounded">
         <nav class="navbar navbar-expand-lg bg-body-secondary my-1">
             <div class="container-fluid">
-                <a class="navbar-brand fw-bold mx-2" href="/">Asset Management System</a>
-                <div class="collapse navbar-collapse mx-4" id="navbarSupportedContent">
+                <a class="navbar-brand fw-bold" href="/">Asset Management System</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -71,9 +123,9 @@
                             aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><a href="/user/list">List Users</a></li>
-                                    <li class="list-group-item"><a href="/user/add">Add Users</a></li>
-                                    <li class="list-group-item"><a href="/user/edit">Edit Users</a></li>
+                                    <li class="list-group-item"><a href="/users/list">List Users</a></li>
+                                    <li class="list-group-item"><a href="/users/add">Add Users</a></li>
+                                    <li class="list-group-item"><a href="/users/edit">Edit Users</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -90,9 +142,9 @@
                             aria-labelledby="panelsStayOpen-headingTwo">
                             <div class="accordion-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><a href="/label/list">List Labels</a></li>
-                                    <li class="list-group-item"><a href="/label/add">Add Labels</a></li>
-                                    <li class="list-group-item"><a href="/label/edit">Edit Labels</a></li>
+                                    <li class="list-group-item"><a href="/labels/list">List Labels</a></li>
+                                    <li class="list-group-item"><a href="/labels/add">Add Labels</a></li>
+                                    <li class="list-group-item"><a href="/labels/edit">Edit Labels</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -128,9 +180,9 @@
                             aria-labelledby="panelsStayOpen-headingFour">
                             <div class="accordion-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><a href="/bill/list">List Bill</a></li>
-                                    <li class="list-group-item"><a href="/bill/add">Add Bill</a></li>
-                                    <li class="list-group-item"><a href="/bill/edit">Edit Bill</a></li>
+                                    <li class="list-group-item"><a href="/bills/list">List Bill</a></li>
+                                    <li class="list-group-item"><a href="/bills/add">Add Bill</a></li>
+                                    <li class="list-group-item"><a href="/bills/edit">Edit Bill</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -142,19 +194,16 @@
         <div class="col-10">
             <div class="d-flex" style="height: 80vh;">
                 <div class="vr"></div>
-              </div>
-            <div class="container">
-
+                <div class="container">
+                    <div class="card p-5 d-flex align-items-center justify-content-center ">
+                        <h5 class="card-title h4 text-uppercase">User list</h5>
+                        <div class="container p-5">
+                            {% block content %} {% endblock %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    </div>
-
-
-
-
-
 </body>
-
 </html>
