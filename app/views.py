@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.urls import reverse
+from .models import *
 
 # Create your views here.
 
@@ -21,13 +23,21 @@ def userEdit(req):
     pass
 
 def labelList(req):
-    pass
+    return render(req, 'label.html', {'label' : req.GET.get('label'), 'labels' : Label.objects.all()})
 
 def labelAdd(req):
-    pass
+    if req.method == 'POST':
+        name = req.POST.get('labelName')
+        if not Label.objects.filter(name=name).exists():
+            label = Label.objects.create(name=name)
+            label.save()
+            return redirect(reverse('labelList')+'?label=True')
+        return redirect(reverse('labelList')+'?label=False')
+    
 
-def labelEdit(req):
-    pass
+def labelDelete(req):
+    Label.objects.filter(id=req.GET.get('id')).delete()
+    return redirect(reverse('labelList')+'?label=Delete')
 
 def stockList(req):
     pass
@@ -49,7 +59,7 @@ def billEdit(req):
 
 
 
-
+ 
 
 
 # def signin(req):
