@@ -1,9 +1,4 @@
-
-.scrollable {
-    max-height: 300;
-    overflow-y: auto;
-}
-a{
+a {
     color: black;
     text-decoration: none;
 }
