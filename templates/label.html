@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}AMS | Labels{% endblock %}
+
+{% block content %}
+
+{% if label == 'True' %}
+<div class="alert alert-success opacity-75 alert-dismissible fade show" role="alert">
+    <strong>label Added Successfully!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% elif label == 'False' %}
+<div class="alert alert-warning opacity-75 alert-dismissible fade show" role="alert">
+    <strong>Duplicate label Entry!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% elif label == 'Delete' %}
+<div class="alert alert-danger opacity-75 alert-dismissible fade show" role="alert">
+    <strong>Label Deleted Successfully!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<form class="row g-3 mb-4" action="/labels/add" method="post">
+    <strong class="text-secondary">Add Lable</strong>
+    <div class="input-group mb-3">
+        {% csrf_token %}
+        <label class="input-group-text">Enter Label Name</label>
+        <input type="text" name="labelName" class="form-control">
+        <button class="btn btn-outline-success" type="submit">Button</button>
+      </div>
+  </form>
+
+<strong class="text-secondary">Label List</strong>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">name</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in labels %}
+        <tr>
+            <td scope="row">{{ forloop.counter }}</td>
+            <td>{{item.name}}</td>
+            <td><a href="/labels/delete?id={{item.id}}" class="text-danger">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
