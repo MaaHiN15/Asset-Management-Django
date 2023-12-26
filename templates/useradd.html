@@ -1,27 +1,40 @@
 {% extends 'base.html' %}
 {% block title %}AMS | User List{% endblock %}
 
+{% block pagehead %}
+{% if edituser %}
+user edit
+{% else %}
+user add
+{% endif %}
+{% endblock %}
+
 {% block content %}
 
 <p id="error"></p>
 
 <form class="row g-3" id="useradd">
+    {% if edituser %}
+    <div class="visually-hidden"><input type="text" readonly name="id" class="form-control-plaintext" value={{user.id}}>
+    </div>
+    {% endif %}
     <div class="col-md-6">
         <label class="form-label">Employee No.</label>
-        <input type="number" class="form-control" name="emp_no" required>
+        <input type="number" class="form-control" name="emp_no" value="{{user.emp_no}}" required>
     </div>
     <div class="col-md-6">
         <label class="form-label">Name</label>
-        <input type="text" class="form-control" name="name" required>
+        <input type="text" class="form-control" name="name" value="{{user.name | safe}}" required>
     </div>
     <div class="col-md-6">
         <label class="form-label">Email</label>
-        <input type="email" class="form-control" name="email" required>
+        <input type="email" class="form-control" name="email" value="{{user.email}}" required>
     </div>
     <div class="col-md-6">
         <label class="form-label">Phone No</label>
-        <input type="number" class="form-control" name="phone" required>
+        <input type="number" class="form-control" name="phone" value="{{user.phone_no}}" required>
     </div>
+    {% if not edituser %}
     <div class="col-md-6">
         <label class="form-label">Password</label>
         <input type="password" class="form-control" name="password" required>
@@ -30,8 +43,13 @@
         <label class="form-label">Confirm Password</label>
         <input type="password" class="form-control" name="cpassword" required>
     </div>
+    {% endif %}
     <div class="col-12 d-flex justify-content-center my-5">
+        {% if edituser %}
+        <button type="submit" class="btn btn-primary">Edit</button>
+        {% else %}
         <button type="submit" class="btn btn-primary">Add</button>
+        {% endif %}
     </div>
 </form>
 

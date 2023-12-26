@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.urls import reverse
 from .models import *
+import json
 
 # Create your views here.
 
@@ -9,18 +10,29 @@ def index(req):
     return render(req, 'index.html', {})
 
 def userList(req):
-    return render(req, 'userlist.html', {})
+    return render(req, 'userlist.html', {'users' : User.objects.all()})
 
 def userAdd(req):
     try:
         if req.method == "POST":
+            data = json.loads(req.body.decode("utf-8"))
+            if data['id'] != None:
+                User.objects.filter(id=data['id']).update(emp_no=data['emp_no'], name=data['name'], email=data['email'], phone_no=data['phone'])
+                return JsonResponse({'status': 303})
+            user = User.objects.create(emp_no=data['emp_no'], name=data['name'], email=data['email'], phone_no=data['phone'], password=data['password'])
+            user.save()
             return JsonResponse({'status': 200, 'text' : 'User Created Successfully!!!'})
     except Exception as e:
         return JsonResponse({'status': 400, 'text' : e})
     return render(req, 'useradd.html', {})
 
 def userEdit(req):
-    pass
+    id = req.GET.get('id')
+    return render(req, 'useradd.html', {'edituser' : True, 'user' : User.objects.filter(id=id).values()[0]})
+
+def userDelete(req):
+    User.objects.filter(id=req.GET.get('id')).delete()
+    return redirect(reverse('userList'))
 
 def labelList(req):
     return render(req, 'label.html', {'label' : req.GET.get('label'), 'labels' : Label.objects.all()})
