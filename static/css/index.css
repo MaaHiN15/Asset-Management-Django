@@ -1,4 +1,4 @@
-a {
+ul li a {
     color: black;
     text-decoration: none;
 }
@@ -6,3 +6,12 @@ li:hover{
     background-color: rgb(247, 250, 255);
     border-radius: 2px;
 }
+
+.bg-dark{background-color: #27374D !important;}
+.tex-dark {color: #27374D !important;}
+.bg-medium{background-color: #526D82 !important;}
+.tex-medium {color: #526D82 !important;}
+.bg-normal{background-color: #9DB2BF !important;}
+.tex-normal {color: #9DB2BF !important;}
+.bg-light{background-color: #DDE6ED !important;}
+.tex-light {color: #DDE6ED !important;}

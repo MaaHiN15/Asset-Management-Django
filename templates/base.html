@@ -69,63 +69,48 @@
         const warningToast = new bootstrap.Toast(document.getElementById('warningToast'));
     </script>
 
-    <div class="container-fluid overflow-hidden shadow p-3 mb-5 bg-body rounded">
-        <nav class="navbar navbar-expand-lg bg-body-secondary my-1">
+    <div class="container-fluid shadow-lg p-3 bg-dark">
+        <nav class="navbar navbar-expand-lg my-1">
             <div class="container-fluid">
-                <a class="navbar-brand fw-bold" href="/">Asset Management System</a>
+                <div class="fw-bold tex-light">Asset Management System</div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
-                        </li>
-                    </ul>
+                    <div class="navbar-nav me-auto mb-2 mx-4 mb-lg-0">
+                        <div class="nav-item">
+                            <a class="nav-link tex-light" aria-current="page" href="#">Home</a>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link tex-light" href="#">Link</a>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link tex-light">Disabled</a>
+                        </div>
+                    </div>
                     <button class="btn btn-outline-primary mx-3" type="submit">Sign In</button>
-                    <div class="vr"></div>
+                    <div class="vr bg-light"></div>
                     <button class="btn btn-outline-danger mx-3" type="submit">Log out</button>
                 </div>
             </div>
         </nav>
     </div>
 
-    <div class="row">
-        <div class="col-2 ">
+    <div class="row mt-5">
+        <div class="col-2">
             <div class="container mx-3">
                 <div class="accordion" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
                                 aria-controls="panelsStayOpen-collapseOne">
                                 <strong>Users</strong>
                             </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
                             aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item"><a href="/users/list">List Users</a></li>
                                     <li class="list-group-item"><a href="/users/add">Add Users</a></li>
-                                    <li class="list-group-item"><a href="/users/edit">Edit Users</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -142,9 +127,7 @@
                             aria-labelledby="panelsStayOpen-headingTwo">
                             <div class="accordion-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><a href="/labels/list">List Labels</a></li>
-                                    <li class="list-group-item"><a href="/labels/add">Add Labels</a></li>
-                                    <li class="list-group-item"><a href="/labels/edit">Edit Labels</a></li>
+                                    <li class="list-group-item"><a href="/labels/list">Add/Edit Labels</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -196,7 +179,7 @@
                 <div class="vr"></div>
                 <div class="container">
                     <div class="card p-5 d-flex align-items-center justify-content-center ">
-                        <h5 class="card-title h4 text-uppercase">User list</h5>
+                        <h5 class="card-title h4 text-uppercase">{% block pagehead %} {% endblock %}</h5>
                         <div class="container p-5">
                             {% block content %} {% endblock %}
                         </div>
@@ -205,5 +188,7 @@
             </div>
         </div>
     </div>
+
 </body>
+
 </html>

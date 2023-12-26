@@ -1,35 +1,33 @@
 {% extends 'base.html' %}
 {% block title %}AMS | User List{% endblock %}
+{% block pagehead %}user list{% endblock %}
 
 {% block content %}
 
 <table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">#ID</th>
+            <th scope="col">Emp No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone No</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>            
         </tr>
     </thead>
     <tbody>
+        {% for user in users %}
         <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <td scope="row">{{forloop.counter}}</td>
+            <td>{{user.emp_no}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phone_no}}</td>
+            <td><a class="text-decoration-none" href="/users/edit?id={{user.id}}">Edit</a></td>
+            <td><a class="text-decoration-none text-danger" href="/users/delete?id={{user.id}}">Delete</a></td>
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
+        {% endfor %}
     </tbody>
 </table>
 
